@@ -24,7 +24,7 @@ module.exports = (grunt) ->
       dest :  "app/chrome_config.json.js"
       template : "var config =<%= config %>;"
     }
-    configJsText = grunt.template.process(configJs.template, {data  :  configJson  })
+    configJsText = grunt.template.process(configJs.template, {data  :  config : JSON.stringify(configJson.config)  })
     grunt.file.write(configJs.dest, configJsText);
 
         
