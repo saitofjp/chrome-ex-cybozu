@@ -11,6 +11,7 @@
     },
     "background": {
         "scripts": [
+            "chrome_config.json.js",
             "src/bg/loading_animation.js",
             "src/bg/cybozu.js",
             "src/bg/badge_status.js",
@@ -38,7 +39,7 @@
                 "src/inject/inject.css"
             ],
             "js": [
-                "vendor/jquery/dist/jquery.js",
+                "bower_components/jquery/dist/jquery.js",
                 "src/inject/inject.js"
             ],
             "run_at" : "document_end",

@@ -16,7 +16,7 @@
           return console.log(status);
         }
       };
-      this.cb = new Cybozu();
+      this.cb = new Cybozu(config.cbUrl);
       this.checker = new MailChecker(this.cb.getChckerUrl());
       this.status = new BadgeStatus();
       this.loading = new LoadingAnimation();

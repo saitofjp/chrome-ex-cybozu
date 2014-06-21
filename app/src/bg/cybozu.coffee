@@ -1,7 +1,5 @@
 class @Cybozu
-  constructor : ()->
-    #パーミッション上の理由で変更できない気がする
-    @cbUrl       = "https://www.itsol.co.jp/cgi-bin/cb6/ag.cgi"
+  constructor : (@cbUrl)->
     @cbFolderUrl = "#{@cbUrl}?page=MyFolderIndex";
     @cbReciveInPageUrl = "#{@cbUrl}?page=MyFolderIndex#receive";
     @cbChekcerUrl  = "#{@cbUrl}?page=MailCheckInterval&info=&notimecard=1";

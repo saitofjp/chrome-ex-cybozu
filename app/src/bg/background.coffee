@@ -4,7 +4,7 @@ class @Service
     @events = {
       received:(status)-> console.log status
     }
-    @cb = new Cybozu();
+    @cb = new Cybozu(config.cbUrl);
     @checker = new MailChecker(@cb.getChckerUrl())
     @status = new BadgeStatus();
     @loading = new LoadingAnimation()
