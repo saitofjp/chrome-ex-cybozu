@@ -1,5 +1,6 @@
 {
-    "name": "サイボウズ++",
+    "name": "chrome-ex-cybozu",
+    "nameEx":"サイボウズ++",
     "version": "0.0.1",
     "private": true,
     "dependencies": {

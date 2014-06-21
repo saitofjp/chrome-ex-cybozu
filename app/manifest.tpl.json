@@ -1,5 +1,5 @@
 {
-    "name": "<%= pkg.name %>",
+    "name": "<%= pkg.nameEx %>",
     "version": "<%= pkg.version %>",
     "description": "<%= pkg.description %>",
     "manifest_version": 2,
@@ -22,7 +22,7 @@
     },
     "browser_action": {
         "default_icon": "icons/icon19.png",
-        "default_title ": "サイボウズ++",
+        "default_title ": "<%= pkg.nameEx %>",
         "default_popup": "src/browser_action/browser_action.html"
     },
     "permissions": [
