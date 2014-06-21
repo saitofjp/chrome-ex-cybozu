@@ -10,8 +10,15 @@ module.exports = (grunt) ->
         dest: "."
         ext: ".js"
         extDot :"last"
-        
-        
+    less:
+      build:
+          expand: true,
+         cwd: "."
+          src: 'app/src/**/*.less',
+          dest: '.',
+          ext: '.css'
+          compress: true
+
   grunt.registerTask 'build.config', ->
 
     manifest = {
@@ -28,6 +35,7 @@ module.exports = (grunt) ->
 
         
   grunt.loadNpmTasks('grunt-contrib-coffee')
+  grunt.loadNpmTasks('grunt-contrib-less')
 
-  grunt.registerTask('build', ["build.config", 'coffee'])
+  grunt.registerTask('build', ["build.config", 'coffee', "less"])
   grunt.registerTask('default', ["build"])

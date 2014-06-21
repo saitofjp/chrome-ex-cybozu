@@ -1,13 +1,14 @@
 {
-    "name": "chrome-ex-cybozu",
-    "nameEx":"サイボウズ++",
-    "version": "0.0.1",
-    "private": true,
-    "dependencies": {
-    },
-    "devDependencies": {
-        "coffee-script": "^1.7.1",
-        "grunt": "^0.4.5",
-        "grunt-contrib-coffee": "^0.10.1"
-    }
+  "name": "chrome-ex-cybozu",
+  "nameEx": "サイボウズ++",
+  "homepage": "https://github.com/saitofjp/chrome-ex-cybozu",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {},
+  "devDependencies": {
+    "coffee-script": "^1.7.1",
+    "grunt": "^0.4.5",
+    "grunt-contrib-coffee": "^0.10.1",
+    "grunt-contrib-less": "^0.11.3"
+  }
 }
