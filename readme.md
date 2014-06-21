@@ -9,7 +9,7 @@ Install Dependencies
 Build
 --------------------
 
-    $ vim  app/chrome_config.json
+    $ vim  app/config.json
     $ grunt 
 
 WebStorm

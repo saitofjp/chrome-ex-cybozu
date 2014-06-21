@@ -1,9 +1,9 @@
 {
-    "name": "サイボウズ++",
-    "version": "0.1",
-    "description": "サイボウズ++",
+    "name": "<%= pkg.name %>",
+    "version": "<%= pkg.version %>",
+    "description": "<%= pkg.description %>",
     "manifest_version": 2,
-    "homepage_url": "http://extensionizr.com",
+    "homepage_url": "<%= pkg.homepage %>",
     "icons": {
         "16": "icons/icon16.png",
         "48": "icons/icon48.png",
@@ -11,7 +11,7 @@
     },
     "background": {
         "scripts": [
-            "chrome_config.json.js",
+            "config.json.js",
             "src/bg/loading_animation.js",
             "src/bg/cybozu.js",
             "src/bg/badge_status.js",
@@ -28,12 +28,12 @@
     "permissions": [
         "notifications",
         "tabs",
-        "<%= config.cbHost %>"
+        "<%= app.config.cbHost %>"
     ],
     "content_scripts": [
         {
             "matches": [
-                "<%= config.cbUrl %>*"
+                "<%= app.config.cbUrl %>*"
             ],
             "css": [
                 "src/inject/inject.css"
