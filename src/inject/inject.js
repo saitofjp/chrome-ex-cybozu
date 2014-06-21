@@ -5,7 +5,7 @@
     return readyStateCheckInterval = setInterval(function() {
       if (document.readyState === "complete") {
         clearInterval(readyStateCheckInterval);
-        return console.log("Hello. This message was sent from scripts/inject.bower_components");
+        return console.log("Hello. This message was sent from scripts/inject.js");
       }
     }, 10);
   });

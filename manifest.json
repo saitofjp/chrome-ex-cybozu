@@ -11,7 +11,7 @@
     },
     "background": {
         "scripts": [
-            "src/bg/background.bower_components"
+            "src/bg/background.js"
         ],
         "persistent": true
     },
@@ -40,7 +40,7 @@
                 "https://www.google.com/*"
             ],
             "js": [
-                "src/inject/inject.bower_components"
+                "src/inject/inject.js"
             ]
         }
     ]
