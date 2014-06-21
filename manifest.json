@@ -9,16 +9,15 @@
         "48": "icons/icon48.png",
         "128": "icons/icon128.png"
     },
-    "default_locale": "en",
     "background": {
         "scripts": [
-            "src/bg/background.js"
+            "src/bg/background.bower_components"
         ],
         "persistent": true
     },
     "browser_action": {
         "default_icon": "icons/icon19.png",
-        "default_title": "browser action demo",
+        "default_title ": "サイボウズ++",
         "default_popup": "src/browser_action/browser_action.html"
     },
     "permissions": [
@@ -41,7 +40,7 @@
                 "https://www.google.com/*"
             ],
             "js": [
-                "src/inject/inject.js"
+                "src/inject/inject.bower_components"
             ]
         }
     ]
