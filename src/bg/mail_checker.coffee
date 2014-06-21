@@ -11,7 +11,7 @@ class Content
     return @ele.querySelector("b")?
 
   getMailCount: ()->
-    if not @hasMail() then return "0";
+    if not @hasMail() then return 0;
     return @ele.querySelector("b")?.innerText;
 
   getContent: ()->
@@ -20,7 +20,9 @@ class Content
     return @ele
 
 class @MailChecker
+
   constructor: (@checkUrl)->
+    @lastStatus = @default();
 
   default: ->
     login: false,
@@ -40,9 +42,13 @@ class @MailChecker
         content: c.getContent()
       }
 
+  getLastStatus:->
+    @lastStatus
+
   check: ()->
-    @get().then (xhr)=>
-      return @createStatus(xhr)
+    @get().then (req)=>
+      @lastStatus = @createStatus(req)
+      return @lastStatus;
     , (e)->
       console.log e
 
@@ -50,6 +56,6 @@ class @MailChecker
     return new Promise (resolve, reject) =>
       req = new XMLHttpRequest();
       req.onload = -> resolve(req)
-      req.onerror = ->reject(req)
-      req.open('GET', @checkUrl);
+      req.onerror = -> reject(req)
+      req.open('GET', @checkUrl );
       req.send(null);

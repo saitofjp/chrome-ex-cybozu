@@ -83,5 +83,3 @@
   })();
 
 }).call(this);
-
-//# sourceMappingURL=cybozu.map

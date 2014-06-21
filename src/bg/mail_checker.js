@@ -23,7 +23,7 @@
     Content.prototype.getMailCount = function() {
       var _ref;
       if (!this.hasMail()) {
-        return "0";
+        return 0;
       }
       return (_ref = this.ele.querySelector("b")) != null ? _ref.innerText : void 0;
     };
@@ -42,6 +42,7 @@
   this.MailChecker = (function() {
     function MailChecker(checkUrl) {
       this.checkUrl = checkUrl;
+      this.lastStatus = this["default"]();
     }
 
     MailChecker.prototype["default"] = function() {
@@ -68,10 +69,15 @@
       }
     };
 
+    MailChecker.prototype.getLastStatus = function() {
+      return this.lastStatus;
+    };
+
     MailChecker.prototype.check = function() {
       return this.get().then((function(_this) {
-        return function(xhr) {
-          return _this.createStatus(xhr);
+        return function(req) {
+          _this.lastStatus = _this.createStatus(req);
+          return _this.lastStatus;
         };
       })(this), function(e) {
         return console.log(e);
@@ -100,5 +106,3 @@
   })();
 
 }).call(this);
-
-//# sourceMappingURL=mail_checker.map

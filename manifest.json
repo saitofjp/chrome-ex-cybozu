@@ -10,7 +10,13 @@
         "128": "icons/icon128.png"
     },
     "background": {
-        "page": "src/bg/background.html",
+        "scripts": [
+            "src/bg/loading_animation.js",
+            "src/bg/cybozu.js",
+            "src/bg/badge_status.js",
+            "src/bg/mail_checker.js",
+            "src/bg/background.js"
+        ],
         "persistent": true
     },
     "browser_action": {

@@ -1,27 +1,6 @@
-# var settings = new Store("settings", {
-#     "sample_setting": "This is how you use Store.js to remember values"
-# });
-
-class @BadgeStatus
-  constructor:->
-    @ba = chrome.browserAction;
-    @lastStatus = null;
-
-  getLastStatus:->
-    @lastStatus
-
-  update :(@status)->
-    @lastStatus = status;
-    if not @status.login
-      @ba.setBadgeText({text: "X" })
-    else if not @status.hasMail
-      @ba.setBadgeText({text: "" })
-    else
-      @ba.setBadgeText({text: status.count })
-
-
 class @Service
   constructor:->
+    @periodInMinutes = 1000 * 60 * 5;
     @events = {
       received:(status)-> console.log status
     }
@@ -39,14 +18,16 @@ class @Service
       @loading.stop()
 
   start: ->
+    console.log "start", @
     @checkMail();
     @cb.pageUpdated  =>  @checkMail();
+    window.setInterval @checkMail, @periodInMinutes
 
   on : ( key , func )=>
       @events[key] = func;
 
   getLastStatus:=>
-    @status.getLastStatus();
+    @checker.getLastStatus();
 
   open:=>
     console.log "open"
@@ -56,10 +37,8 @@ class @Service
     console.log "openAndReceive"
     @cb.openPageAndMailCheck();
 
-service = new Service();
-console.log "start", @
-service.start();
 
+(service = new Service()).start();
 do (global=@)->
   global.getService = -> service;
 

@@ -1,5 +1,3 @@
-console.log "inject.js"
-
 class HashCmd
   constructor:->
 
@@ -10,11 +8,15 @@ class HashCmd
         callback.call()
 
   start :->
+    console.log "inject.js"
     #check page load hash ( all event fire)
     $(window).trigger "hashchange"
 
 hasCmd = new HashCmd()
 hasCmd.on "receive" , ->
     $("form:has([value=MailCommand])").submit()
+
+hasCmd.on "login" , ->
+  $("form[name=LoginForm]").submit()
 
 $ -> hasCmd.start();

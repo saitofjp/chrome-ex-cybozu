@@ -3,38 +3,6 @@
   var service,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
-  this.BadgeStatus = (function() {
-    function BadgeStatus() {
-      this.ba = chrome.browserAction;
-      this.lastStatus = null;
-    }
-
-    BadgeStatus.prototype.getLastStatus = function() {
-      return this.lastStatus;
-    };
-
-    BadgeStatus.prototype.update = function(status) {
-      this.status = status;
-      this.lastStatus = status;
-      if (!this.status.login) {
-        return this.ba.setBadgeText({
-          text: "X"
-        });
-      } else if (!this.status.hasMail) {
-        return this.ba.setBadgeText({
-          text: ""
-        });
-      } else {
-        return this.ba.setBadgeText({
-          text: status.count
-        });
-      }
-    };
-
-    return BadgeStatus;
-
-  })();
-
   this.Service = (function() {
     function Service() {
       this.openAndReceive = __bind(this.openAndReceive, this);
@@ -42,6 +10,7 @@
       this.getLastStatus = __bind(this.getLastStatus, this);
       this.on = __bind(this.on, this);
       this.checkMail = __bind(this.checkMail, this);
+      this.periodInMinutes = 1000 * 60 * 5;
       this.events = {
         received: function(status) {
           return console.log(status);
@@ -66,12 +35,14 @@
     };
 
     Service.prototype.start = function() {
+      console.log("start", this);
       this.checkMail();
-      return this.cb.pageUpdated((function(_this) {
+      this.cb.pageUpdated((function(_this) {
         return function() {
           return _this.checkMail();
         };
       })(this));
+      return window.setInterval(this.checkMail, this.periodInMinutes);
     };
 
     Service.prototype.on = function(key, func) {
@@ -79,7 +50,7 @@
     };
 
     Service.prototype.getLastStatus = function() {
-      return this.status.getLastStatus();
+      return this.checker.getLastStatus();
     };
 
     Service.prototype.open = function() {
@@ -96,11 +67,7 @@
 
   })();
 
-  service = new Service();
-
-  console.log("start", this);
-
-  service.start();
+  (service = new Service()).start();
 
   (function(global) {
     return global.getService = function() {
@@ -109,5 +76,3 @@
   })(this);
 
 }).call(this);
-
-//# sourceMappingURL=background.map

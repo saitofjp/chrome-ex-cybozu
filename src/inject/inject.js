@@ -2,8 +2,6 @@
 (function() {
   var HashCmd, hasCmd;
 
-  console.log("inject.js");
-
   HashCmd = (function() {
     function HashCmd() {}
 
@@ -16,6 +14,7 @@
     };
 
     HashCmd.prototype.start = function() {
+      console.log("inject.js");
       return $(window).trigger("hashchange");
     };
 
@@ -29,10 +28,12 @@
     return $("form:has([value=MailCommand])").submit();
   });
 
+  hasCmd.on("login", function() {
+    return $("form[name=LoginForm]").submit();
+  });
+
   $(function() {
     return hasCmd.start();
   });
 
 }).call(this);
-
-//# sourceMappingURL=inject.map

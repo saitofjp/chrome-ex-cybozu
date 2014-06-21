@@ -1,11 +1,10 @@
-
 class PopupViewModel
   constructor:->
-    @service = chrome.extension.getBackgroundPage().getService()
-    @service.on "received" , @updateStatus
-
     @content = ko.observable("loading...")
     @hasMail = ko.observable(false)
+
+    @service = chrome.extension.getBackgroundPage().getService()
+    @service.on "received" , @updateStatus
     @updateStatus(@service.getLastStatus())
 
   open :=>
@@ -20,7 +19,6 @@ class PopupViewModel
     console.log status
     if not status? then return
     @content(status.content?.innerText);
-    debugger;
     @hasMail(status.hasMail);
 
   start:->

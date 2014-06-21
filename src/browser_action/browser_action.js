@@ -8,10 +8,10 @@
       this.updateStatus = __bind(this.updateStatus, this);
       this.receive = __bind(this.receive, this);
       this.open = __bind(this.open, this);
-      this.service = chrome.extension.getBackgroundPage().getService();
-      this.service.on("received", this.updateStatus);
       this.content = ko.observable("loading...");
       this.hasMail = ko.observable(false);
+      this.service = chrome.extension.getBackgroundPage().getService();
+      this.service.on("received", this.updateStatus);
       this.updateStatus(this.service.getLastStatus());
     }
 
@@ -32,7 +32,6 @@
         return;
       }
       this.content((_ref = status.content) != null ? _ref.innerText : void 0);
-      debugger;
       return this.hasMail(status.hasMail);
     };
 
@@ -49,5 +48,3 @@
   });
 
 }).call(this);
-
-//# sourceMappingURL=browser_action.map

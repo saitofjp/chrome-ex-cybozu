@@ -52,5 +52,3 @@
   })();
 
 }).call(this);
-
-//# sourceMappingURL=loading_animation.map
