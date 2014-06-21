@@ -1,5 +1,6 @@
 {
     "config" :{
-        "cbUrl" : ""
+        "cbUrl"  : "https://www.itsol.co.jp/cgi-bin/cb6/ag.cgi",
+        "cbHost" : "https://www.itsol.co.jp/"
     }
 }

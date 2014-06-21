@@ -1,2 +1,5 @@
 /.idea
+node_modules
 /app/bower_components
+/app/chrome_config.json.js
+/app/manifest.json

@@ -28,12 +28,12 @@
     "permissions": [
         "notifications",
         "tabs",
-        "https://www.itsol.co.jp/"
+        "<%= config.cbHost %>"
     ],
     "content_scripts": [
         {
             "matches": [
-                "https://www.itsol.co.jp/cgi-bin/cb6/ag.cgi*"
+                "<%= config.cbUrl %>*"
             ],
             "css": [
                 "src/inject/inject.css"
