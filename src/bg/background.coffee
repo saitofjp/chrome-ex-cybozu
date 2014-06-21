@@ -5,7 +5,13 @@
 class @BadgeStatus
   constructor:->
     @ba = chrome.browserAction;
+    @lastStatus = null;
+
+  getLastStatus:->
+    @lastStatus
+
   update :(@status)->
+    @lastStatus = status;
     if not @status.login
       @ba.setBadgeText({text: "X" })
     else if not @status.hasMail
@@ -14,77 +20,41 @@ class @BadgeStatus
       @ba.setBadgeText({text: status.count })
 
 
-class Opener
-  eachTab : (callback) ->
-    chrome.tabs.getAllInWindow null, (tabs) ->
-      i = 0
-      tab = undefined
-      while tab = tabs[i]
-        if tab.url and cb.isCbUrl(tab.url)
-          if callback
-            callback
-              tab: tab
-              exists: true
-
-          return
-        i++
-      callback exists: false  if callback
-
-  openPage : ->
-    @eachTab (res) ->
-      if res.exists
-        chrome.tabs.update res.tab.id,
-          selected: true
-      else
-        chrome.tabs.create url: cb.getFolderUrl()
-
-  openPageAndMailCheck = ->
-    @eachTab (res) ->
-      if res.exists
-        chrome.tabs.update res.tab.id,
-          selected: true
-          url: res.tab.url + "#mailGet"
-      else
-        chrome.tabs.create url: cb.getFolderUrl() + "#mailGet"
-
 class @Service
   constructor:->
-    @cb = Cybouz();
-    @lastStatus = null;
-    @events = {}
-    @checker = new MailChecker(
-      Cybouz.CB_CHECK_URL
-    )
-    @badge = new BadgeStatus();
+    @events = {
+      received:(status)-> console.log status
+    }
+    @cb = new Cybozu();
+    @checker = new MailChecker(@cb.getChckerUrl())
+    @status = new BadgeStatus();
     @loading = new LoadingAnimation()
 
   checkMail :=>
+    console.log "check email"
     @loading.start()
     @checker.check().then (status)=>
-      @lastStatus = status;
-      @badge.update(status)
-      @events.onReceive?(status)
+      @status.update(status)
+      @events.received(status)
       @loading.stop()
 
   start: ->
-    @loading.start();
     @checkMail();
-    window.setInterval =>
-      @checkMail()
-    , 5 * 1000 * 60
+    @cb.pageUpdated  =>  @checkMail();
 
-  addEventListener : ( events )=>
-    for event of events
-      @events[event] = events[event];
+  on : ( key , func )=>
+      @events[key] = func;
 
   getLastStatus:=>
-    @lastStatus
+    @status.getLastStatus();
 
   open:=>
     console.log "open"
+    @cb.openPage();
 
   openAndReceive :=>
     console.log "openAndReceive"
+    @cb.openPageAndMailCheck();
 
 service = new Service();
 console.log "start", @

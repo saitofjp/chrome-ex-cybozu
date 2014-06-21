@@ -23,25 +23,20 @@
         "tabs",
         "https://www.itsol.co.jp/"
     ],
-    "omnibox": {
-        "keyword": "cy"
-    },
     "content_scripts": [
         {
             "matches": [
-                "https://www.google.com/*"
+                "https://www.itsol.co.jp/cgi-bin/cb6/ag.cgi*"
             ],
             "css": [
                 "src/inject/inject.css"
-            ]
-        },
-        {
-            "matches": [
-                "https://www.google.com/*"
             ],
             "js": [
+                "vendor/jquery/dist/jquery.js",
                 "src/inject/inject.js"
-            ]
+            ],
+            "run_at" : "document_end",
+            "all_frames" : false
         }
     ],
 

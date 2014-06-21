@@ -22,7 +22,6 @@ class @LoadingAnimation
       => @paintFrame()
     , 100
     )
-
   stop : ->
     return  unless @timerId_
     window.clearInterval @timerId_

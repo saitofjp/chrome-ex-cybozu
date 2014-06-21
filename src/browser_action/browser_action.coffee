@@ -2,24 +2,25 @@
 class PopupViewModel
   constructor:->
     @service = chrome.extension.getBackgroundPage().getService()
-    @service.addEventListener
-      onReceive : @onReceive
+    @service.on "received" , @updateStatus
 
     @content = ko.observable("loading...")
     @hasMail = ko.observable(false)
-
-    @onReceive(@service.getLastStatus())
+    @updateStatus(@service.getLastStatus())
 
   open :=>
     @service.open()
+    window.close()
 
   receive :=>
     @service.openAndReceive()
+    window.close()
 
-  onReceive : (status)=>
+  updateStatus : (status)=>
+    console.log status
     if not status? then return
-    content = if status.content? then status.content.innerText else "";
-    @content(content);
+    @content(status.content?.innerText);
+    debugger;
     @hasMail(status.hasMail);
 
   start:->

@@ -1,11 +1,20 @@
-chrome.extension.sendMessage {}, (response) ->
-  readyStateCheckInterval = setInterval(->
-    if document.readyState is "complete"
-      clearInterval readyStateCheckInterval
+console.log "inject.js"
 
-      # ----------------------------------------------------------
-      # This part of the script triggers when page is done loading
-      console.log "Hello. This message was sent from scripts/inject.js"
+class HashCmd
+  constructor:->
 
-    # ----------------------------------------------------------
-  , 10)
+  on : (hash, callback)->
+    $(window).on "hashchange.#{hash}", ->
+      #check hash
+      if hash == location.hash.replace("#", "")
+        callback.call()
+
+  start :->
+    #check page load hash ( all event fire)
+    $(window).trigger "hashchange"
+
+hasCmd = new HashCmd()
+hasCmd.on "receive" , ->
+    $("form:has([value=MailCommand])").submit()
+
+$ -> hasCmd.start();

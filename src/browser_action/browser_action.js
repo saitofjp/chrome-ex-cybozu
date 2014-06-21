@@ -5,33 +5,34 @@
 
   PopupViewModel = (function() {
     function PopupViewModel() {
-      this.onReceive = __bind(this.onReceive, this);
+      this.updateStatus = __bind(this.updateStatus, this);
       this.receive = __bind(this.receive, this);
       this.open = __bind(this.open, this);
       this.service = chrome.extension.getBackgroundPage().getService();
-      this.service.addEventListener({
-        onReceive: this.onReceive
-      });
+      this.service.on("received", this.updateStatus);
       this.content = ko.observable("loading...");
       this.hasMail = ko.observable(false);
-      this.onReceive(this.service.getLastStatus());
+      this.updateStatus(this.service.getLastStatus());
     }
 
     PopupViewModel.prototype.open = function() {
-      return this.service.open();
+      this.service.open();
+      return window.close();
     };
 
     PopupViewModel.prototype.receive = function() {
-      return this.service.openAndReceive();
+      this.service.openAndReceive();
+      return window.close();
     };
 
-    PopupViewModel.prototype.onReceive = function(status) {
-      var content;
+    PopupViewModel.prototype.updateStatus = function(status) {
+      var _ref;
+      console.log(status);
       if (status == null) {
         return;
       }
-      content = status.content != null ? status.content.innerText : "";
-      this.content(content);
+      this.content((_ref = status.content) != null ? _ref.innerText : void 0);
+      debugger;
       return this.hasMail(status.hasMail);
     };
 
