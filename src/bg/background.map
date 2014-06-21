@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "background.bower_components",
+  "sourceRoot": "",
+  "sources": [
+    "background.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAOA;AAAA,EAAA,MAAM,CAAC,SAAS,CAAC,SAAS,CAAC,WAA3B,CAAuC,SAAC,OAAD,EAAU,MAAV,EAAkB,YAAlB,GAAA;AACrC,IAAA,MAAM,CAAC,UAAU,CAAC,IAAlB,CAAuB,MAAM,CAAC,GAAG,CAAC,EAAlC,CAAA,CAAA;WACA,YAAA,CAAA,EAFqC;EAAA,CAAvC,CAAA,CAAA;AAAA"
+}
