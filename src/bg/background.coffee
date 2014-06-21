@@ -15,34 +15,45 @@ class @BadgeStatus
 
 class @Service
   constructor:->
+    @lastStatus = null;
     @events = {}
     @checker = new MailChecker(@onReceive)
     @badge = new BadgeStatus();
-    @loadingAnimation = new LoadingAnimation()
+    @loading = new LoadingAnimation()
+
+  checkMail :=>
+    @loading.start()
+    @checker.check().then (status)=>
+      @lastStatus = status;
+      @loading.stop()
+
+  start: ->
+    @loading.start();
+    window.setInterval =>
+      @checkMail()
+    , 5000
 
   addEventListener : ( events )=>
     for event of events
       @events[event] = events[event];
 
-  loadingStart :=>
-    @loadingAnimation.start()
-
-  loadingStop :=>
-    @loadingAnimation.stop()
-
   onReceive: (status)=>
     @badge.update(status)
     @events.onReceive?(status)
 
-  open:=>
-    console.log "page open"
-    @checker.check();
+  getLastStatus:=>
+    @lastStatus
 
-  receive :=>
-    console.log "receive "
+  open:=>
+    console.log "open"
+
+  openAndReceive :=>
+    console.log "openAndReceive"
 
 service = new Service();
-console.log @
+console.log "start", @
+service.start();
+
 do (global=@)->
   global.getService = -> service;
 

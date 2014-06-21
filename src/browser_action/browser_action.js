@@ -12,8 +12,9 @@
       this.service.addEventListener({
         onReceive: this.onReceive
       });
-      this.content = ko.observable("");
+      this.content = ko.observable("loading...");
       this.hasMail = ko.observable(false);
+      this.onReceive(this.service.getLastStatus());
     }
 
     PopupViewModel.prototype.open = function() {
@@ -21,11 +22,14 @@
     };
 
     PopupViewModel.prototype.receive = function() {
-      return this.service.receive();
+      return this.service.openAndReceive();
     };
 
     PopupViewModel.prototype.onReceive = function(status) {
       var content;
+      if (status == null) {
+        return;
+      }
       content = status.content != null ? status.content.innerText : "";
       this.content(content);
       return this.hasMail(status.hasMail);

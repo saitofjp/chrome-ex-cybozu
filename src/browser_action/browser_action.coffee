@@ -5,19 +5,22 @@ class PopupViewModel
     @service.addEventListener
       onReceive : @onReceive
 
-    @content = ko.observable("")
+    @content = ko.observable("loading...")
     @hasMail = ko.observable(false)
+
+    @onReceive(@service.getLastStatus())
 
   open :=>
     @service.open()
 
   receive :=>
-    @service.receive()
+    @service.openAndReceive()
 
   onReceive : (status)=>
-      content = if status.content? then status.content.innerText else "";
-      @content(content);
-      @hasMail(status.hasMail);
+    if not status? then return
+    content = if status.content? then status.content.innerText else "";
+    @content(content);
+    @hasMail(status.hasMail);
 
   start:->
     ko.applyBindings @

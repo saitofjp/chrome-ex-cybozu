@@ -31,17 +31,37 @@
 
   this.Service = (function() {
     function Service() {
-      this.receive = __bind(this.receive, this);
+      this.openAndReceive = __bind(this.openAndReceive, this);
       this.open = __bind(this.open, this);
+      this.getLastStatus = __bind(this.getLastStatus, this);
       this.onReceive = __bind(this.onReceive, this);
-      this.loadingStop = __bind(this.loadingStop, this);
-      this.loadingStart = __bind(this.loadingStart, this);
       this.addEventListener = __bind(this.addEventListener, this);
+      this.checkMail = __bind(this.checkMail, this);
+      this.lastStatus = null;
       this.events = {};
       this.checker = new MailChecker(this.onReceive);
       this.badge = new BadgeStatus();
-      this.loadingAnimation = new LoadingAnimation();
+      this.loading = new LoadingAnimation();
     }
+
+    Service.prototype.checkMail = function() {
+      this.loading.start();
+      return this.checker.check().then((function(_this) {
+        return function(status) {
+          _this.lastStatus = status;
+          return _this.loading.stop();
+        };
+      })(this));
+    };
+
+    Service.prototype.start = function() {
+      this.loading.start();
+      return window.setInterval((function(_this) {
+        return function() {
+          return _this.checkMail();
+        };
+      })(this), 5000);
+    };
 
     Service.prototype.addEventListener = function(events) {
       var event, _results;
@@ -52,27 +72,22 @@
       return _results;
     };
 
-    Service.prototype.loadingStart = function() {
-      return this.loadingAnimation.start();
-    };
-
-    Service.prototype.loadingStop = function() {
-      return this.loadingAnimation.stop();
-    };
-
     Service.prototype.onReceive = function(status) {
       var _base;
       this.badge.update(status);
       return typeof (_base = this.events).onReceive === "function" ? _base.onReceive(status) : void 0;
     };
 
-    Service.prototype.open = function() {
-      console.log("page open");
-      return this.checker.check();
+    Service.prototype.getLastStatus = function() {
+      return this.lastStatus;
     };
 
-    Service.prototype.receive = function() {
-      return console.log("receive ");
+    Service.prototype.open = function() {
+      return console.log("open");
+    };
+
+    Service.prototype.openAndReceive = function() {
+      return console.log("openAndReceive");
     };
 
     return Service;
@@ -81,7 +96,9 @@
 
   service = new Service();
 
-  console.log(this);
+  console.log("start", this);
+
+  service.start();
 
   (function(global) {
     return global.getService = function() {
