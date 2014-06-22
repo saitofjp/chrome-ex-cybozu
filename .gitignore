@@ -1,5 +1,7 @@
-/.idea
+
 node_modules
 /app/bower_components
 /app/config.json.js
 /app/manifest.json
+/.idea/workspace.xml
+/.idea/dictionaries
