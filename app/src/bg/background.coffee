@@ -1,6 +1,6 @@
 class @Service
-  constructor:->
-    @periodInMinutes = 1000 * 60 * 5;
+  constructor:()->
+    @period = config.period * 1000 * 60
     @events = {
       received:(status)-> console.log status
     }
@@ -21,7 +21,7 @@ class @Service
     console.log "start", @
     @checkMail();
     @cb.pageUpdated  =>  @checkMail();
-    window.setInterval @checkMail, @periodInMinutes
+    window.setInterval @checkMail, @period
 
   on : ( key , func )=>
       @events[key] = func;

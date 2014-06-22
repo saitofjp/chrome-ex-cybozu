@@ -2,6 +2,7 @@
     "define" : "config",
     "config": {
         "cbUrl": "https://www.itsol.co.jp/cgi-bin/cb6/ag.cgi",
-        "cbHost": "https://www.itsol.co.jp/"
+        "cbHost": "https://www.itsol.co.jp/",
+        "period" : 5
     }
 }
